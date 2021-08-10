@@ -8,8 +8,7 @@ provider:
   lambdaHashingVersion: '20201221'
   stage: dev
   environment: 
-    WORLD_FUNC: ${self:service}-${self:provider.stage}-world
-    LAMBDA_ENDPOINT: http://localhost:4001
+    WORLD_FUNC: ${self:service}-${self:provider.stage}-world    
   iam:
     role:
       statements:
@@ -17,7 +16,7 @@ provider:
           Action:
             - 'lambda:InvokeFunction'
           Resource: '*'
-          
+
 custom:
   serverless-offline:
     httpPort: 4000
