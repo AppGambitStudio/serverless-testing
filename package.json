@@ -1,0 +1,23 @@
+{
+  "name": "serverless-testing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.963.0",
+    "aws-sdk-mock": "^5.2.1",
+    "jest": "^27.0.6",
+    "serverless": "^2.53.1",
+    "serverless-offline": "^8.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "request-promise": "^4.2.6"
+  }
+}
