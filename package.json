@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest unit-tests/*",
+    "test-integration": "jest integration-tests/* --env=node"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +13,7 @@
   "devDependencies": {
     "aws-sdk": "^2.963.0",
     "aws-sdk-mock": "^5.2.1",
+    "axios": "^0.21.1",
     "jest": "^27.0.6",
     "serverless": "^2.53.1",
     "serverless-offline": "^8.0.0"

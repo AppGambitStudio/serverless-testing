@@ -1,4 +1,4 @@
-const {world } = require('../functions/index');
+const {world } = require('../../functions/index');
 
 test('validate the World Lambda function with input and output', async () => {
     const input = { val: 'Lambda'};

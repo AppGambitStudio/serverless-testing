@@ -17,7 +17,7 @@ test('validate the Hello Lambda function with input and output parameters', asyn
         callback(null, { Payload: JSON.stringify({message: `Hello world to ${inputName}`})});
     });
 
-    const {hello} = require('../functions/index');
+    const {hello} = require('../../functions/index');
     const resObj = await hello(inputObj);    
 
     expect(resObj).toMatchObject(outputObj);

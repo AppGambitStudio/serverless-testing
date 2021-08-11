@@ -1,4 +1,4 @@
-const {handler} = require('../functions/reverseFunc');
+const {handler} = require('../../functions/reverseFunc');
 
 test('validate the Reverse Lambda function with input and output', async () => {
     // Arrange

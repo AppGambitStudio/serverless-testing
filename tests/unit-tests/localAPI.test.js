@@ -12,11 +12,17 @@ afterAll( async () => {
     await stopSlsOffline();
 })
 
-
 test('Test Hello API with HTTP request and response', done => {
-    request.get("http://localhost:4000/dev/hello?name=Lambda")
+    // Arrange
+    const apiURL = "http://localhost:4000/dev/hello?name=Lambda";
+    const expectedOutput = JSON.stringify({"message":"Hello world to Lambda"})
+
+    // Act
+    request.get(apiURL)
     .then((data) => {
-        expect(data).toBe(JSON.stringify({"message":"Hello world to Lambda"}));
+
+        // Assert
+        expect(data).toBe(expectedOutput);
         done();
     });
 });

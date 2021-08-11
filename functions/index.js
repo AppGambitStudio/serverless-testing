@@ -4,7 +4,7 @@ const { Lambda } = require('aws-sdk');
 
 let lambda;
 
-const getLambda = () => {
+const getLambdaObj = () => {
     console.log('Using Local Lambda Endpoint');
     if(process.env.IS_OFFLINE){
         lambda = new Lambda({
@@ -18,7 +18,7 @@ const getLambda = () => {
     return lambda;
 }
 
-lambda = getLambda();
+lambda = getLambdaObj();
 
 module.exports.hello = async (event, context) => {
     const { name } = event.queryStringParameters || event;
@@ -26,10 +26,6 @@ module.exports.hello = async (event, context) => {
         FunctionName: process.env.WORLD_FUNC,
         InvocationType: 'RequestResponse',
         Payload: JSON.stringify({ val: name }),
-    }
-    
-    if(!lambda){
-        lambda = getLambda();
     }
     
     const response = await lambda.invoke(params).promise()
