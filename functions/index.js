@@ -4,17 +4,15 @@ const AWS = require('aws-sdk');
 
 let lambda;
 
-const getLambdaObj = () => {
+const getLambdaObj = () => {    
     if(lambda) return lambda;
 
-    if(process.env.IS_OFFLINE){        
-        const AWSMock = require('aws-sdk-mock');
-        AWSMock.setSDKInstance(AWS);
-
-        console.log('returning lambda offline endpoint')
+    if(process.env.IS_OFFLINE){
+        require('dotenv').config();
+        console.log('returning lambda offline endpoint', process.env.LAMBDA_ENDPOINT)
         lambda = new AWS.Lambda({
             region: process.env.AWS_REGION,
-            endpoint: process.env.LAMBDA_ENDPOINT            
+            endpoint: process.env.LAMBDA_ENDPOINT
         });
     }else{
         lambda = new AWS.Lambda({});
