@@ -9,7 +9,6 @@ const getLambdaObj = () => {
 
     if(process.env.IS_OFFLINE){
         require('dotenv').config();
-        console.log('returning lambda offline endpoint', process.env.LAMBDA_ENDPOINT)
         lambda = new AWS.Lambda({
             region: process.env.AWS_REGION,
             endpoint: process.env.LAMBDA_ENDPOINT,

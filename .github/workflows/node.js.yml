@@ -1,0 +1,48 @@
+# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node_version: [12, 14, 16]
+        os: [macOS-latest]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node_version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node_version }}
+
+    - name: Create .env file
+      uses: DeveloperRic/action-create-env@v1.0.2 # set this to the version of your choice
+      with:
+        full_text: |
+          WORLD_FUNC=world
+          LAMBDA_ENDPOINT=http://localhost:4001
+          AWS_REGION=us-east-1
+          IS_OFFLINE=true
+        directory: ${{ github.workspace }}
+        include_env_vars: true
+      env:
+        WORLD_FUNC: ${{ secrets.WORLD_FUNC }}
+        LAMBDA_ENDPOINT: ${{ secrets.LAMBDA_ENDPOINT }}
+        AWS_REGION:  ${{ secrets.AWS_REGION }}
+        IS_OFFLINE:  ${{ secrets.IS_OFFLINE }} 
+          
+    - name: npm install, build and test
+      run: |
+        npm install
+        npm run build --if-present
+        npm test 
