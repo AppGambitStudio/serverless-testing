@@ -5,6 +5,8 @@ const AWS = require('aws-sdk');
 let lambda;
 
 const getLambdaObj = () => {
+    if(lambda) return lambda;
+
     if(process.env.IS_OFFLINE){        
         const AWSMock = require('aws-sdk-mock');
         AWSMock.setSDKInstance(AWS);
@@ -21,9 +23,7 @@ const getLambdaObj = () => {
     return lambda;
 }
 
-lambda = getLambdaObj();
-
-module.exports.hello = async (event, context) => {
+module.exports.hello = async (event, context) => {    
     const { name } = event.queryStringParameters || event;
     const params = {
         FunctionName: process.env.WORLD_FUNC,
@@ -31,7 +31,7 @@ module.exports.hello = async (event, context) => {
         Payload: JSON.stringify({ val: name }),
     }
     
-    const response = await lambda.invoke(params).promise()
+    const response = await getLambdaObj().invoke(params).promise()
     const res = JSON.parse(response.Payload);
 
     return {
