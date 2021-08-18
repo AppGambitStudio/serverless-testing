@@ -1,18 +1,21 @@
 "use strict";
 const { helloWorld } = require('../lib/util');
-const { Lambda } = require('aws-sdk');
+const AWS = require('aws-sdk');
 
 let lambda;
 
 const getLambdaObj = () => {
-    console.log('Using Local Lambda Endpoint');
-    if(process.env.IS_OFFLINE){
-        lambda = new Lambda({
-            region: 'us-east-1',
-            endpoint: process.env.LAMBDA_ENDPOINT
+    if(process.env.IS_OFFLINE){        
+        const AWSMock = require('aws-sdk-mock');
+        AWSMock.setSDKInstance(AWS);
+
+        console.log('returning lambda offline endpoint')
+        lambda = new AWS.Lambda({
+            region: process.env.AWS_REGION,
+            endpoint: process.env.LAMBDA_ENDPOINT            
         });
     }else{
-        lambda = new Lambda({});
+        lambda = new AWS.Lambda({});
     }
 
     return lambda;
