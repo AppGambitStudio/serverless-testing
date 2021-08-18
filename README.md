@@ -1,7 +1,8 @@
 # Serverless Testing
 Software Testing is a key part of any application development irrespective of the tools, frameworks or methodologies in use. This simple project is created to put up few examples on how to create Unit tests for Lambda functions using the Jest and other libraries.
 
-Run the following command to run unit tests.
+Run the following command to run unit tests. For unit testing, update the `.env` with AWS region and Lambda Endpoint to local offline endpoint. Refer the [sample.env](./sample.env) file for the required environment variables.
+
 
 ```
 npm test
