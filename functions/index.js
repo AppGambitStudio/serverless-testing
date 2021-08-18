@@ -12,7 +12,11 @@ const getLambdaObj = () => {
         console.log('returning lambda offline endpoint', process.env.LAMBDA_ENDPOINT)
         lambda = new AWS.Lambda({
             region: process.env.AWS_REGION,
-            endpoint: process.env.LAMBDA_ENDPOINT
+            endpoint: process.env.LAMBDA_ENDPOINT,
+            credentials: new AWS.Credentials({
+                accessKeyId: 'fake',
+                secretAccessKey: 'fake'
+            })
         });
     }else{
         lambda = new AWS.Lambda({});
